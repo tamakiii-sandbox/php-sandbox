@@ -13,4 +13,7 @@ run:
 		php -S 0.0.0.0:80 -t src
 
 sh:
-	docker run -it --entrypoint=sh $(NAME)
+	docker exec -it $(CONTAINER) sh
+
+logs:
+	docker logs -f $(CONTAINER)
