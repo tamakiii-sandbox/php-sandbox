@@ -10,6 +10,12 @@ composer.phar:
 	php composer-setup.php
 	php -r "unlink('composer-setup.php');"
 
+test:
+	vendor/bin/phpunit --colors=always
+
+coverage:
+	php -dzend_extension=xdebug.so vendor/phpunit/phpunit/phpunit --coverage-text --coverage-html=storage/coverage/html --colors=never
+
 build:
 	docker build -t $(NAME) .
 
