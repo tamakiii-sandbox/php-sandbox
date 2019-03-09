@@ -1,8 +1,5 @@
-NAME := tamakiii-sandbox/php-sandbox
-CONTAINER ?= $(shell docker ps -qf ancestor="$(NAME)")
-
 install: \
-	composer.phar
+	vendor/
 
 composer.phar:
 	php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
@@ -10,28 +7,18 @@ composer.phar:
 	php composer-setup.php
 	php -r "unlink('composer-setup.php');"
 
-test:
+vendor/: composer.phar
+	php composer.phar install
+
+app:
+	php -S 0.0.0.0:80 src
+
+test: install
 	vendor/bin/phpunit --colors=always
 
-coverage:
+coverage: install
 	php -dzend_extension=xdebug.so vendor/phpunit/phpunit/phpunit --coverage-text --coverage-html=storage/coverage/html --colors=never
 
-build:
-	docker build -t $(NAME) .
-
-run:
-	docker run --rm \
-		-v $(realpath .):/app \
-		-w /app \
-		-p 8080:80 \
-		$(NAME) \
-		php -S 0.0.0.0:80 -t src
-
-sh:
-	docker exec -it $(CONTAINER) sh
-
-logs:
-	docker logs -f $(CONTAINER)
-
-clear:
+clean:
 	rm composer.phar
+	rm -rf vendor/
