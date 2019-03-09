@@ -6,3 +6,4 @@ RUN set -xe; \
     docker-php-ext-enable xdebug; \
     apk del --no-network .fetch-deps
 
+COPY conf.d/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
