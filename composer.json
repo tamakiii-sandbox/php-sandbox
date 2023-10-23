@@ -1,0 +1,14 @@
+{
+    "name": "tamakiii-sandbox/php-sandbox",
+    "autoload": {
+        "psr-4": {
+            "TamakiiiSandbox\\PhpSandbox\\": "src/",
+            "TamakiiiSandbox\\PhpSandbox\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.0"
+    }
+}
